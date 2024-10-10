@@ -8,21 +8,21 @@ const questions = [
 ];
 
 /*---------- Variables (state) ---------*/
-let currentQuestionIndex = 0; // مؤشر السؤال الحالي
+let currentQuestionIndex = 0; 
 let score = 0; // النقاط الحالية
-let userAnswers = []; // مصفوفة لتخزين إجابات المستخدم
+let userAnswers = [];
 
 /*----- Cached Element References  -----*/
-const questionElement = document.getElementById("question"); // عنصر السؤال
-const optionsElement = document.getElementById("options"); // عنصر خيارات الإجابة
-const resultElement = document.getElementById("result"); // عنصر عرض النتيجة
-const submitButton = document.getElementById("submit"); // زر التقديم
+const questionElement = document.getElementById("question"); 
+const optionsElement = document.getElementById("options"); 
+const resultElement = document.getElementById("result"); 
+const submitButton = document.getElementById("submit"); 
 
 /*-------------- Functions -------------*/
 function loadQuestion() {
-    const currentQuestion = questions[currentQuestionIndex]; // الحصول على السؤال الحالي
-    questionElement.innerText = currentQuestion.question; // عرض نص السؤال
-    optionsElement.innerHTML = ""; // إعادة تعيين خيارات الإجابة
+    const currentQuestion = questions[currentQuestionIndex]; 
+    questionElement.innerText = currentQuestion.question; 
+    optionsElement.innerHTML = ""; 
     currentQuestion.options.forEach((option, index) => {
         optionsElement.innerHTML += `
             <div class="option">
@@ -34,14 +34,14 @@ function loadQuestion() {
 }
 
 function showResult() {
-    // إعداد نص النتيجة
+    
     let resultHTML = `Your result: ${score} of ${questions.length}<br><br>`;
     resultHTML += "<h3>Answer details:</h3>";
     
     questions.forEach((question, index) => {
         resultHTML += `<p>${index + 1}. ${question.question} <br>`;
         
-        // التحقق إذا كانت الإجابة صحيحة أو خاطئة
+        
         if (userAnswers[index] === question.answer) {
             resultHTML += `Your Answer : <span style="color: green;">${userAnswers[index]}</span> <br>`;
         } else {
@@ -51,32 +51,31 @@ function showResult() {
         resultHTML += `The Right Answer: <span style="color: blue;">${question.answer}</span></p><hr>`;
     });
 
-    resultElement.innerHTML = resultHTML; // عرض النتائج
-    resultElement.style.display = "block"; // إظهار العنصر
-    questionElement.style.display = "none"; // إخفاء السؤال
-    optionsElement.style.display = "none"; // إخفاء الخيارات
-    submitButton.style.display = "none"; // إخفاء الزر
+    resultElement.innerHTML = resultHTML; 
+    resultElement.style.display = "block"; 
+    questionElement.style.display = "none"; 
+    optionsElement.style.display = "none"; 
+    submitButton.style.display = "none"; 
 }
 
 /*----------- Event Listeners ----------*/
 submitButton.addEventListener("click", () => {
-    const selectedOption = document.querySelector('input[name="option"]:checked'); // الحصول على الخيار المحدد
-    if (!selectedOption) return alert("يرجى اختيار إجابة!"); // التحقق من تحديد خيار
+    const selectedOption = document.querySelector('input[name="option"]:checked'); 
+    if (!selectedOption) return alert("Please choose an answer!"); 
 
-    const answer = parseInt(selectedOption.value); // تحويل القيمة إلى عدد صحيح
-    userAnswers[currentQuestionIndex] = answer; // تخزين الإجابة في المصفوفة
+    const answer = parseInt(selectedOption.value); 
+    userAnswers[currentQuestionIndex] = answer; 
 
-    if (answer === questions[currentQuestionIndex].answer) { // التحقق من الإجابة الصحيحة
-        score++; // زيادة النقاط في حال كانت الإجابة صحيحة
+    if (answer === questions[currentQuestionIndex].answer) { 
+        score++; 
     }
 
-    currentQuestionIndex++; // الانتقال إلى السؤال التالي
+    currentQuestionIndex++; 
     if (currentQuestionIndex < questions.length) {
-        loadQuestion(); // تحميل السؤال التالي
+        loadQuestion(); 
     } else {
-        showResult(); // عرض النتيجة النهائية
+        showResult(); 
     }
 });
 
-// Load the first question
-loadQuestion(); // تحميل السؤال الأول عند بدء اللعبة
+loadQuestion();
