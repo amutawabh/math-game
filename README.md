@@ -17,6 +17,7 @@
 # Getting started: 
 
 Git
+https://amutawabh.github.io/math-game/
 
 # Technologies used: 
 JavaScript, HTML and CSS
