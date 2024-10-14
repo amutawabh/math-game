@@ -9,7 +9,7 @@ const questions = [
 
 /*---------- Variables (state) ---------*/
 let currentQuestionIndex = 0; 
-let score = 0; // النقاط الحالية
+let score = 0; 
 let userAnswers = [];
 
 /*----- Cached Element References  -----*/
@@ -34,20 +34,25 @@ function loadQuestion() {
 }
 
 function showResult() {
-    
-    let resultHTML = `Your result: ${score} of ${questions.length}<br><br>`;
+    let resultHTML = `<h3>Your result: ${score} of ${questions.length}</h3><br>`;
     resultHTML += "<h3>Answer details:</h3>";
-    
+
+
+    if (score >= 3) {
+        resultHTML += '<span style="color: green; font-size: 24px;">Great Job!</span><br><br>';
+    } else {
+        resultHTML += '<span style="color: red; font-size: 24px;">Game Over, Please Try Again</span><br><br>';
+    }
+
     questions.forEach((question, index) => {
         resultHTML += `<p>${index + 1}. ${question.question} <br>`;
-        
-        
+
         if (userAnswers[index] === question.answer) {
             resultHTML += `Your Answer : <span style="color: green;">${userAnswers[index]}</span> <br>`;
         } else {
-            resultHTML += `Your Answer: <span style="color: red;">${userAnswers[index] !== undefined ? userAnswers[index] : "لم يتم الإجابة"}</span> <br>`;
+            resultHTML += `Your Answer: <span style="color: red;">${userAnswers[index] !== undefined ? userAnswers[index] : "Not answered"}</span> <br>`;
         }
-        
+
         resultHTML += `The Right Answer: <span style="color: blue;">${question.answer}</span></p><hr>`;
     });
 
@@ -55,7 +60,24 @@ function showResult() {
     resultElement.style.display = "block"; 
     questionElement.style.display = "none"; 
     optionsElement.style.display = "none"; 
-    submitButton.style.display = "none"; 
+    submitButton.style.display = "none";
+
+
+    if (score < 3) {
+        resultElement.innerHTML += '<button id="restart">Restart Game</button>';
+        document.getElementById("restart").addEventListener("click", restartGame);
+    }
+}
+
+function restartGame() {
+    currentQuestionIndex = 0; 
+    score = 0; 
+    userAnswers = []; 
+    resultElement.style.display = "none"; 
+    questionElement.style.display = "block"; 
+    optionsElement.style.display = "block"; 
+    submitButton.style.display = "inline"; 
+    loadQuestion(); 
 }
 
 /*----------- Event Listeners ----------*/
