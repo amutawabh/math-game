@@ -34,8 +34,6 @@ https://amutawabh.github.io/math-game/
 # Technologies used: 
 JavaScript, HTML and CSS
 
-
-
 # Next steps:-
 
 1. Timing for each question
