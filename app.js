@@ -63,10 +63,10 @@ function showResult() {
     submitButton.style.display = "none";
 
 
-    if (score < 3) {
+  
         resultElement.innerHTML += '<button id="restart">Restart Game</button>';
         document.getElementById("restart").addEventListener("click", restartGame);
-    }
+    
 }
 
 function restartGame() {
